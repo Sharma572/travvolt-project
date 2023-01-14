@@ -1,7 +1,6 @@
 import { takeEvery, call, put, takeLatest } from "redux-saga/effects";
-import userLoginApi, { userLogIn } from "../API/api";
 import { LOGIN_REQUEST, LOGIN_SUCCESS } from "../Auth/logIn/actionType";
-import { signUpActions } from "../Auth/SignUp/actionSignUp";
+import userApi from "../API/api";
 import {
   fetchLogIn,
   loginAction,
@@ -10,13 +9,8 @@ import {
 
 function* userLoginRequest(action) {
   try {
-    const user = yield call(action.payload);
-
-    const { data } = user;
-
-    localStorage.setItem("token", data);
-    console.log("value saga", data);
-    yield put(fetchLogIn(data));
+    const user = yield call(userApi.userB2BLogin, action.payload);
+    yield put(fetchLogIn(user));
   } catch (error) {
     yield put(fetchLogIn({}));
   }

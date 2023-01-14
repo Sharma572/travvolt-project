@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { NavLink, Route, Routes } from "react-router-dom";
 import Header from "../Components/Header";
@@ -19,49 +19,94 @@ import Registration from "../Pages/registration/Registration";
 import Login from "../Pages/login/Login";
 import HotelSearch from "../Pages/Hotel/hotelsearch/HotelSearch";
 import Booknow from "../Pages/Flight/booknow/Booknow";
+import { useLocation, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector, useReducer } from "react-redux";
+import { ipAction } from "../Redux/IP/actionIp";
+
 const MainPage = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const reducerState = useSelector((state) => state);
+  const isLoginRoute = location.pathname === "/Login";
+  const isRegisterRoute = location.pathname === "/Registration";
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(ipAction());
+  }, []);
+
+  useEffect(() => {
+    dispatch(ipAction());
+    if (
+      !reducerState?.logIn?.loginData?.data &&
+      location.pathname !== "/Registration"
+    ) {
+      navigate("/Login");
+    }
+  }, []);
+
   return (
-    <div className="mainBox">
-      {/* header of main dashboard */}
-      <Header />
-      {/* inner navbar contain all pages */}
-      <InnerNavbar />
-      {/* all routes of inner navbar */}
-      <div className="componentsContainer">
-        <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="registration" element={<Registration />} />
-          <Route
-            element={<Active />}
-            style={{ color: "inherit", textDecoration: "inherit" }}
-          />
-          <Route
-            path="/Hotel"
-            element={<Hotel />}
-            style={{ color: "inherit", textDecoration: "inherit" }}
-          />
-          <Route exact path="flightresult" element={<Flightresult />} />
-          <Route exact path="/hotel/hotelsearch" element={<HotelSearch />} />
-          <Route exact path="flights/booknow" element={<Booknow />} />
-          <Route path="/flights/*" element={<Flight />}>
-            {/* <Route exact path="flightresult" element={<Flightresult />}/>  */}
+    <>
+      {/* {!reducerState?.logIn?.loginData?.data ? <Navigate to="/Login" /> : null} */}
 
-            <Route exact path="oneway" element={<OneWay />} />
-            <Route exact path="offShare" element={<OffShare />} />
-            <Route exact path="multiStop" element={<MultiStop />} />
-            <Route exact path="calenderfare" element={<Calander />} />
-            <Route exact path="return" element={<Return />} />
+      {!isLoginRoute && !isRegisterRoute && (
+        <div className="mainBox">
+          {/* header of main dashboard */}
+          <Header />
+          {/* inner navbar contain all pages */}
+          <InnerNavbar />
 
-            {/* <Route exact path='advanceSearch' element={}/> */}
-          </Route>
+          {/* all routes of inner navbar */}
+          <div className="componentsContainer">
+            <Routes>
+              {/* <Route path="login" element={<Login />} /> */}
+              {/* <Route path="registration" element={<Registration />} /> */}
+              <Route
+                element={<Active />}
+                style={{ color: "inherit", textDecoration: "inherit" }}
+              />
+              <Route
+                path="/Hotel"
+                element={<Hotel />}
+                style={{ color: "inherit", textDecoration: "inherit" }}
+              />
+              <Route exact path="flightresult" element={<Flightresult />} />
+              <Route
+                exact
+                path="/hotel/hotelsearch"
+                element={<HotelSearch />}
+              />
+              <Route exact path="flights/booknow" element={<Booknow />} />
+              <Route path="/flights/*" element={<Flight />}>
+                {/* <Route exact path="flightresult" element={<Flightresult />}/>  */}
 
-          <Route path="/" element={<Banner />} />
-        </Routes>
+                <Route exact path="oneway" element={<OneWay />} />
+                <Route exact path="offShare" element={<OffShare />} />
+                <Route exact path="multiStop" element={<MultiStop />} />
+                <Route exact path="calenderfare" element={<Calander />} />
+                <Route exact path="return" element={<Return />} />
+
+                {/* <Route exact path='advanceSearch' element={}/> */}
+              </Route>
+
+              <Route path="/" element={<Banner />} />
+            </Routes>
+          </div>
+
+          {/* main page footer */}
+          {!isLoginRoute && <Footer />}
+        </div>
+      )}
+      <div className="mainBox">
+        <div className="componentsContainer">
+          <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path="registration" element={<Registration />} />
+          </Routes>
+        </div>
       </div>
-
-      {/* main page footer */}
-      <Footer />
-    </div>
+    </>
   );
 };
 

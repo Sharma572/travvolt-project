@@ -13,8 +13,8 @@ function InnerNavbar() {
           <Flex
             direction="column"
             justifyContent="space-around"
-            borderRadius="5px"
-            w="9.5%"
+            borderRadius="15px"
+            w="8%"
             key={index}
           >
             <NavLink

@@ -1,11 +1,11 @@
 import { takeEvery, takeLatest, call, put } from "redux-saga/effects";
-import userLoginApi from "../API/api";
+import userApi from "../API/api";
 import { fetchSignUp, signUpAction } from "../Auth/SignUp/actionSignUp";
 import { SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../Auth/SignUp/actionType";
 
 function* userSignUpRequest(action) {
   try {
-    const user = yield call(userLoginApi.userB2BRegistration, action.payload);
+    const user = yield call(userApi.userB2BRegistration, action.payload);
     yield put(fetchSignUp(user));
   } catch (error) {
     console.log(error);

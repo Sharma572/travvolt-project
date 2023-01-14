@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { signUpAction } from "../../Redux/Auth/SignUp/actionSignUp";
 import Alert from "@mui/material/Alert";
+import tra from "../../Images/tra.png";
 
 import {
   Typography,
@@ -48,6 +49,7 @@ function LinaerStepper() {
           state: formData.get("state"),
           city: formData.get("city"),
         },
+        password: formData.get("password"),
       },
       agency_details: {
         agency_name: formData.get("agency_name"),
@@ -111,13 +113,32 @@ function LinaerStepper() {
   }
 
   return (
-    <div>
-      {reducerState.signUp?.showSuccessMessage && (
-        <Alert severity="success">
-          Thankyou ! for Registering, we'll contact you ASAP
-        </Alert>
-      )}
+    <>
+      <Box
+        display="flex"
+        justifyContant="center"
+        alignItems="center"
+        textAlign="center"
+        font="Quicksand, Bold"
+      >
+        <Box
+          sx={{
+            width: "69px",
+            height: "69px",
+          }}
+        >
+          <img src={tra} style={{ width: "100%" }}></img>
+        </Box>
+        <Typography className="logo_text">Travvolt</Typography>
+      </Box>
+
       <Paper style={{ height: "500px", overflow: "scroll" }}>
+        {reducerState.signUp?.showSuccessMessage && (
+          <Alert severity="success">
+            Thankyou ! for Registering, we'll contact you ASAP
+          </Alert>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div
             className="registrationContainer"
@@ -245,6 +266,18 @@ function LinaerStepper() {
                         />
                       </div>
                     </Box>
+                    <Box py={2}>
+                      <div className="form_input">
+                        <label className="form_lable">Password*</label>
+                        <input
+                          type="text"
+                          name="password"
+                          placeholder="Enter Your Password"
+                          className="input_size"
+                          required
+                        />
+                      </div>
+                    </Box>
                   </Grid>
                   <Grid item xs={12} sm={12} md={4} alignItems="center">
                     <Box py={2}>
@@ -261,14 +294,11 @@ function LinaerStepper() {
                     </Box>
                     <Box py={2}>
                       <div className="form_input">
-                        <label className="form_lable">
-                          {" "}
-                          Telli Phone Number{" "}
-                        </label>
+                        <label className="form_lable"> TelePhone Number </label>
                         <input
                           type="number"
                           name="telephone_number"
-                          placeholder=" Enter Your Telli Phone Number"
+                          placeholder=" Enter Your TelePhone Number"
                           className="input_size"
                         />
                       </div>
@@ -621,7 +651,7 @@ function LinaerStepper() {
                         <label className="form_lable">Contact Person</label>
                         <input
                           name="agency_gst_details_contact_person"
-                          type="number"
+                          type="text"
                           placeholder=" Enter Contact Person"
                           className="input_size"
                         />
@@ -849,7 +879,7 @@ function LinaerStepper() {
           </div>
         </form>
       </Paper>
-    </div>
+    </>
   );
 }
 
