@@ -98,13 +98,12 @@ const MainPage = () => {
           {!isLoginRoute && <Footer />}
         </div>
       )}
-      <div className="mainBox">
-        <div className="componentsContainer">
-          <Routes>
-            <Route path="login" element={<Login />} />
-            <Route path="registration" element={<Registration />} />
-          </Routes>
-        </div>
+
+      <div>
+        <Routes>
+          <Route path="login" element={<Login />} />
+          <Route path="registration" element={<Registration />} />
+        </Routes>
       </div>
     </>
   );
