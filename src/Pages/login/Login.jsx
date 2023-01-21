@@ -31,11 +31,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    if (reducerState?.logIn?.loginData?.data?.data) {
-      navigate("/");
-    }
-  }, [reducerState, navigate]);
+  // useEffect(() => {
+  //   if (reducerState?.logIn?.loginData?.data?.data) {
+  //     navigate("/");
+  //   }
+  // }, [reducerState, navigate]);
 
   return (
     <React.Fragment>
@@ -198,8 +198,11 @@ const Login = () => {
                     >
                       Register
                     </Button>
+                   
                   </Box>
                 </form>
+
+          
                 <form action="/">
                   {reducerState.logIn.loginData?.data?.data?.message && (
                     <Alert severity="success">
@@ -217,7 +220,7 @@ const Login = () => {
                         <input
                           style={{ height: "60px", width: "400px" }}
                           name="email"
-                          type="email"
+                          type="text"
                           placeholder="Enter your Email Address"
                           value={email}
                           onChange={(event) => setEmail(event.target.value)}

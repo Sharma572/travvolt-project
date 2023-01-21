@@ -2,7 +2,7 @@ import { Center, Square, Text, Flex } from "@chakra-ui/react";
 import React from "react";
 import "./NavBarBox.css";
 const NavBarBox = ({ avatar, name, path }, index) => {
-  console.log(name);
+  // console.log(name);
   return (
     <Square w="auto" h="100%" borderRadius="15px" key={index}>
       <Flex

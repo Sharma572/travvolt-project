@@ -42,7 +42,7 @@ export default function Demo(props) {
   };
 
   const handleSubmit = () => {
-    if (value == true) {
+    if (value === true) {
       const payload = {
         email: props.email,
         password: props.password,
@@ -52,16 +52,16 @@ export default function Demo(props) {
     }
   };
 
-  // useEffect(() => {
-  //   if(value === true) {
-  //     const payload = {
-  //       email: props.email,
-  //       password: props.password,
-  //     };
-  //     console.log("Form Data", payload);
-  //     dispatch(loginAction(payload));
-  //   }
-  // }, [value]);
+  useEffect(() => {
+    if(value === true) {
+      const payload = {
+        email: props.email,
+        password: props.password,
+      };
+      console.log("Form Data", payload);
+      dispatch(loginAction(payload));
+    }
+  }, [value]);
 
   const generateRandomString = () => {
     let result = "";
